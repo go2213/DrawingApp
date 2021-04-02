@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -30,16 +29,20 @@ public class CanvasView extends View {
     private ArrayList<Path> currentPathList;
     private ArrayList<Path> undoList;
     private Paint selectedBrush;
+    private int selectedBrushColor;
 
     private final Paint pen = new Paint();
     private final Paint highlighter = new Paint();
     private final Paint pencil = new Paint();
 
+    private CanvasViewListener canvasViewListener;
+
 
     
-    public CanvasView(Context context){
+    public CanvasView(Context context, CanvasViewListener canvasViewListener){
         super(context);
 
+        this.canvasViewListener = canvasViewListener;
         this.pathList = new ArrayList<>();
         this.currentPathList = new ArrayList<>();
         this.undoList = new ArrayList<>();
@@ -49,6 +52,7 @@ public class CanvasView extends View {
         this.setDefaultPencilSettings();
 
         this.setSelectedBrushToPen();
+        this.selectedBrushColor = Color.BLACK;
         layoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
     }
 
@@ -82,6 +86,7 @@ public class CanvasView extends View {
                 pathList.add(path);
                 path = new Path();
                 currentPathList.clear();
+                canvasViewListener.enableUndoButton(true);
                 break;
             default:
                 return false;
@@ -104,9 +109,13 @@ public class CanvasView extends View {
     }
 
     public void undoLastStroke(){
+
         if (pathList.size() > 0) {
             undoList.add(pathList.remove(pathList.size() - 1));
             invalidate();
+        }
+        else{
+            canvasViewListener.enableUndoButton(false);
         }
     }
 
@@ -115,6 +124,17 @@ public class CanvasView extends View {
             pathList.add(undoList.remove(undoList.size()-1));
             invalidate();
         }
+        else{
+            canvasViewListener.enableRedoButton(false);
+        }
+    }
+
+
+
+    public void clearAllStrokes(){
+        undoList.clear();
+        pathList.clear();
+        invalidate();
     }
 
 
@@ -139,29 +159,35 @@ public class CanvasView extends View {
         this.selectedBrush = this.pencil;
     }
 
+    public int getSelectedBrushColor(){
+        int color = selectedBrush.getColor();
+        return Color.rgb(Color.red(color), Color.green(color), Color.blue(color));
+    }
+
 
 
     private void setDefaultPenSettings(){
         pen.setAntiAlias(true);
-        pen.setColor(Color.BLACK);
+        pen.setColor(Color.MAGENTA);
         pen.setStyle(Paint.Style.STROKE);
         pen.setStrokeJoin(Paint.Join.ROUND);
-        pen.setStrokeWidth(5f);
+        pen.setStrokeWidth(20f);
         pen.setStrokeCap(Paint.Cap.ROUND);
     }
 
     private void setDefaultHighlighterSettings(){
         highlighter.setAntiAlias(true);
-        highlighter.setARGB(23,23, 23, 10);
+        highlighter.setARGB(200,238, 255, 0);
         highlighter.setStyle(Paint.Style.STROKE);
+//        highlighter.setColor(Color.YELLOW);
+//        highlighter.setAlpha(200);
         highlighter.setStrokeJoin(Paint.Join.ROUND);
-        highlighter.setStrokeWidth(10f);
+        highlighter.setStrokeWidth(30f);
         highlighter.setStrokeCap(Paint.Cap.SQUARE);
     }
 
     private void setDefaultPencilSettings(){
         pencil.setAntiAlias(true);
-        pencil.setColor(Color.MAGENTA);
         pencil.setARGB(23,23, 23, 10);
         pencil.setStyle(Paint.Style.STROKE);
         pencil.setStrokeJoin(Paint.Join.ROUND);
@@ -170,4 +196,35 @@ public class CanvasView extends View {
     }
 
 
+    public static interface CanvasViewListener {
+        public void enableUndoButton(boolean isEnabled);
+
+        public void enableRedoButton(boolean isEnabled);
+    }
+
+
 }
+
+
+/*
+
+
+  public void redoLastStroke() {
+        if (undoList.size() > 0) {
+            if(undoList.get(undoList.size() -1).isEmpty()){ // found empty path, cleared canvas
+                this.undoLastStroke();
+                pathList.add(new Path());
+            }
+            else{
+                pathList.add(undoList.remove(undoList.size()-1));
+                if(undoList.isEmpty()){
+                    undoListEmptyListener.isUndoListEmpty(true);
+                }
+                invalidate();
+            }
+        }
+        else{
+            undoListEmptyListener.isUndoListEmpty(true);
+        }
+    }
+ */
