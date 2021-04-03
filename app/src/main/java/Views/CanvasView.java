@@ -29,7 +29,6 @@ public class CanvasView extends View {
     private ArrayList<Path> currentPathList;
     private ArrayList<Path> undoList;
     private Paint selectedBrush;
-    private int selectedBrushColor;
 
     private final Paint pen = new Paint();
     private final Paint highlighter = new Paint();
@@ -52,7 +51,6 @@ public class CanvasView extends View {
         this.setDefaultPencilSettings();
 
         this.setSelectedBrushToPen();
-        this.selectedBrushColor = Color.BLACK;
         layoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
     }
 
@@ -105,7 +103,6 @@ public class CanvasView extends View {
         for (Path path : currentPathList) {
             canvas.drawPath(path, selectedBrush);
         }
-
     }
 
     public void undoLastStroke(){

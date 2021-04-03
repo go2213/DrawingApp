@@ -17,10 +17,11 @@ import com.example.packag.R;
 
 import java.util.ArrayList;
 
+import Dialogues.ClearConfirmationDialogue;
 import Views.CanvasView;
 
 
- public class DrawingActivity extends AppCompatActivity implements CanvasView.CanvasViewListener {
+ public class DrawingActivity extends AppCompatActivity implements CanvasView.CanvasViewListener, ClearConfirmationDialogue.ClearConfirmationDialogueListener{
 
     ImageButton undoButton, redoButton;
     ImageView penImgView, highlighterImgView, pencilImgView, eraserImgView, penColorIV, highlighterColorIV, pencilColorIV, eraserColorIV;
@@ -47,7 +48,6 @@ import Views.CanvasView;
         pencilImgView = findViewById(R.id.pencilImgView);
         eraserImgView = findViewById(R.id.eraserImgView);
 
-
         brushImgViews.add(penImgView);
         brushImgViews.add(highlighterImgView);
         brushImgViews.add(pencilImgView);
@@ -70,6 +70,8 @@ import Views.CanvasView;
         canvasContainer = findViewById(R.id.canvasContainer);
         canvasContainer.addView(canvasView);
 
+        penImgView.performClick();
+
 
     }
 
@@ -83,10 +85,18 @@ import Views.CanvasView;
     }
 
     public void clearButtonClicked(View view) {
-        canvasView.clearAllStrokes();
-        redoButton.setEnabled(false);
-        undoButton.setEnabled(false);
+        ClearConfirmationDialogue clearConfirmationDialogue = new ClearConfirmationDialogue();
+        clearConfirmationDialogue.show(getSupportFragmentManager(), "confirmClear");
     }
+
+     @Override
+     public void confirmationToClear(Boolean response) {
+            if(response){
+                canvasView.clearAllStrokes();
+                redoButton.setEnabled(false);
+                undoButton.setEnabled(false);
+            }
+     }
 
     @Override
     public void enableUndoButton(boolean isEnabled) {
@@ -169,5 +179,7 @@ import Views.CanvasView;
             }
         }
     }
-}
+
+
+ }
 
