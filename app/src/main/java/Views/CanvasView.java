@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class CanvasView extends View {
@@ -25,9 +26,10 @@ public class CanvasView extends View {
     private Canvas canvas;
 
     private Path path = new Path();
-    private ArrayList<Path> pathList;
-    private ArrayList<Path> currentPathList;
-    private ArrayList<Path> undoList;
+    private ArrayList<Stroke> pathList;
+    private ArrayList<Stroke> currentPathList;
+    private ArrayList<Stroke> undoList;
+
     private Paint selectedBrush;
 
     private final Paint pen = new Paint();
@@ -35,14 +37,13 @@ public class CanvasView extends View {
     private final Paint pencil = new Paint();
 
     private CanvasViewListener canvasViewListener;
-
-
     
     public CanvasView(Context context, CanvasViewListener canvasViewListener){
         super(context);
 
         this.canvasViewListener = canvasViewListener;
         this.pathList = new ArrayList<>();
+
         this.currentPathList = new ArrayList<>();
         this.undoList = new ArrayList<>();
 
@@ -76,12 +77,12 @@ public class CanvasView extends View {
                 return true;
             case MotionEvent.ACTION_MOVE:
                 path.lineTo(pointX, pointY);  // A change has happened during a press gesture (between ACTION_DOWN and ACTION_UP)
-                currentPathList.add(path);
+                currentPathList.add(new Stroke(path, selectedBrush));
                 break;
             case MotionEvent.ACTION_UP:
                 path.lineTo(pointX, pointY);
                 canvas.drawPath(path, selectedBrush);
-                pathList.add(path);
+                pathList.add(new Stroke(path, selectedBrush));
                 path = new Path();
                 currentPathList.clear();
                 canvasViewListener.enableUndoButton(true);
@@ -97,12 +98,14 @@ public class CanvasView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        for (Path path : pathList) {
-            canvas.drawPath(path, selectedBrush);
+        for (Stroke Stroke : pathList) {
+            canvas.drawPath(Stroke.getPath(), Stroke.getPaint());
         }
-        for (Path path : currentPathList) {
-            canvas.drawPath(path, selectedBrush);
+        for (Stroke Stroke : currentPathList) {
+            canvas.drawPath(Stroke.getPath(), Stroke.getPaint());
         }
+
+
     }
 
     public void undoLastStroke(){
@@ -202,26 +205,3 @@ public class CanvasView extends View {
 
 }
 
-
-/*
-
-
-  public void redoLastStroke() {
-        if (undoList.size() > 0) {
-            if(undoList.get(undoList.size() -1).isEmpty()){ // found empty path, cleared canvas
-                this.undoLastStroke();
-                pathList.add(new Path());
-            }
-            else{
-                pathList.add(undoList.remove(undoList.size()-1));
-                if(undoList.isEmpty()){
-                    undoListEmptyListener.isUndoListEmpty(true);
-                }
-                invalidate();
-            }
-        }
-        else{
-            undoListEmptyListener.isUndoListEmpty(true);
-        }
-    }
- */
