@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ import Views.CanvasView;
 
     ImageButton undoButton, redoButton;
     ImageView penImgView, highlighterImgView, pencilImgView, eraserImgView, penColorIV, highlighterColorIV, pencilColorIV, eraserColorIV;
-    Button clearButton;
+    Button clearButton, colorButton;
     RelativeLayout canvasContainer;
     CanvasView canvasView;
     ArrayList<ImageView> brushImgViews = new ArrayList<>();
@@ -39,6 +40,7 @@ import Views.CanvasView;
         undoButton = findViewById(R.id.undoButton);
         redoButton = findViewById(R.id.redoButton);
         clearButton = findViewById(R.id.clearButton);
+        colorButton = findViewById(R.id.colorButton);
 
         redoButton.setEnabled(false);
         undoButton.setEnabled(false);
@@ -181,5 +183,8 @@ import Views.CanvasView;
     }
 
 
+     public void colorButtonClicked(View view) {
+         startActivity(new Intent(this, ColorPicker.class));
+     }
  }
 
