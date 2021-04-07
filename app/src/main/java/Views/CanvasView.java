@@ -196,10 +196,10 @@ public class CanvasView extends View {
     }
 
 
-    public static interface CanvasViewListener {
-        public void enableUndoButton(boolean isEnabled);
+    public interface CanvasViewListener {
+        void enableUndoButton(boolean isEnabled);
 
-        public void enableRedoButton(boolean isEnabled);
+        void enableRedoButton(boolean isEnabled);
     }
 
 

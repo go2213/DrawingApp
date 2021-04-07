@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="Red"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/titleTV"
         app:layout_constraintHorizontal_bias="0.0"
@@ -56,7 +56,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/redTV"
         app:layout_constraintTop_toBottomOf="@+id/redTV"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:max="255"/>
 
     <EditText
         android:id="@+id/redEditText"
@@ -103,7 +104,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/greenTV"
         app:layout_constraintTop_toBottomOf="@+id/greenTV"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:max="255"/>
 
     <EditText
         android:id="@+id/greenEditText"
@@ -144,7 +146,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/blueTV"
         app:layout_constraintTop_toBottomOf="@+id/blueTV"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:max="255"/>
 
     <EditText
         android:id="@+id/blueEditText"
@@ -187,7 +190,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/opacityTV"
         app:layout_constraintTop_toBottomOf="@+id/opacityTV"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:max="255"/>
 
     <EditText
         android:id="@+id/opacityEditText"

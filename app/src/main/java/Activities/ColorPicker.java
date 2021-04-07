@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SeekBar;
 
 import com.example.packag.R;
 
@@ -18,6 +19,7 @@ public class ColorPicker extends AppCompatActivity {
     EditText redEditText, greenEditText, blueEditText, opacityEditText;
     int red, green, blue, opacity;
     int redFirstDigit, greenFirstDigit, blueFirstDigit, opacityFirstDigit;
+    SeekBar redSeekBar, greenSeekBar, blueSeekBar, opacitySeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,16 @@ public class ColorPicker extends AppCompatActivity {
         blueEditText.setText(String.valueOf(blue));
         opacityEditText.setText(String.valueOf(opacity));
 
+        redSeekBar = findViewById(R.id.redSeekBar);
+        greenSeekBar = findViewById(R.id.greenSeekBar);
+        blueSeekBar = findViewById(R.id.blueSeekBar);
+        opacitySeekBar = findViewById(R.id.opacitySeekBar);
+
+        redSeekBar.setProgress(red);
+        greenSeekBar.setProgress(green);
+        blueSeekBar.setProgress(blue);
+        opacitySeekBar.setProgress(opacity);
+
         redEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -56,6 +68,7 @@ public class ColorPicker extends AppCompatActivity {
                     red = Integer.parseInt(rgbInput);
                     red = rgbCheckInBounds(red);
                     redEditText.setText(String.valueOf(red));
+                    redSeekBar.setProgress(red);
                     redEditText.setSelection(redEditText.getText().length());
                 }
                 return false;
@@ -75,6 +88,24 @@ public class ColorPicker extends AppCompatActivity {
             }
         });
 
+        redSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                red = progress;
+                redEditText.setText(String.valueOf(red));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // do nothing
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // do nothing
+            }
+        });
+
         greenEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -87,6 +118,7 @@ public class ColorPicker extends AppCompatActivity {
                     green = Integer.parseInt(rgbInput);
                     green = rgbCheckInBounds(green);
                     greenEditText.setText(String.valueOf(green));
+                    greenSeekBar.setProgress(green);
                     greenEditText.setSelection(greenEditText.getText().length());
                 }
                 return false;
@@ -106,6 +138,24 @@ public class ColorPicker extends AppCompatActivity {
             }
         });
 
+        greenSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                green = progress;
+                greenEditText.setText(String.valueOf(green));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // do nothing
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // do nothing
+            }
+        });
+
         blueEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -118,6 +168,7 @@ public class ColorPicker extends AppCompatActivity {
                     blue = Integer.parseInt(rgbInput);
                     blue = rgbCheckInBounds(blue);
                     blueEditText.setText(String.valueOf(blue));
+                    blueSeekBar.setProgress(blue);
                     blueEditText.setSelection(blueEditText.getText().length());
                 }
                 return false;
@@ -137,6 +188,24 @@ public class ColorPicker extends AppCompatActivity {
             }
         });
 
+        blueSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                blue = progress;
+                blueEditText.setText(String.valueOf(blue));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // do nothing
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // do nothing
+            }
+        });
+
         opacityEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -149,6 +218,7 @@ public class ColorPicker extends AppCompatActivity {
                     opacity = Integer.parseInt(rgbInput);
                     opacity = rgbCheckInBounds(opacity);
                     opacityEditText.setText(String.valueOf(opacity));
+                    opacitySeekBar.setProgress(opacity);
                     opacityEditText.setSelection(opacityEditText.getText().length());
                 }
                 return false;
@@ -167,6 +237,24 @@ public class ColorPicker extends AppCompatActivity {
                 }
             }
         });
+
+        opacitySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                opacity = progress;
+                opacityEditText.setText(String.valueOf(opacity));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // do nothing
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // do nothing
+            }
+        });
     }
 
 
@@ -179,12 +267,6 @@ public class ColorPicker extends AppCompatActivity {
         }
         return rgbValue;
     }
-
-
-
-
-
-
 
 
 }
