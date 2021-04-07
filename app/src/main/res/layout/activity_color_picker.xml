@@ -67,6 +67,8 @@
         android:background="@color/cardview_shadow_start_color"
         android:textSize="30dp"
         android:hint="100"
+        android:maxLength="3"
+        android:inputType="number"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/redSeekBar"
@@ -110,6 +112,8 @@
         android:background="@color/cardview_shadow_start_color"
         android:textSize="30dp"
         android:hint="100"
+        android:maxLength="3"
+        android:inputType="number"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/greenSeekBar"
@@ -149,6 +153,8 @@
         android:background="@color/cardview_shadow_start_color"
         android:textSize="30dp"
         android:hint="100"
+        android:inputType="number"
+        android:maxLength="3"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/blueSeekBar"
@@ -190,6 +196,8 @@
         android:background="@color/cardview_shadow_start_color"
         android:textSize="30dp"
         android:hint="100"
+        android:inputType="number"
+        android:maxLength="3"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/opacitySeekBar"
@@ -223,6 +231,7 @@
         app:layout_constraintStart_toStartOf="@+id/opacitySeekBar"
         app:layout_constraintTop_toBottomOf="@+id/divider"
         app:layout_constraintVertical_bias="0.016" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
