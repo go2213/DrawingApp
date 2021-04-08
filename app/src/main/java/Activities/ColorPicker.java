@@ -1,25 +1,27 @@
 package Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.example.packag.R;
 
 public class ColorPicker extends AppCompatActivity {
 
-    final int MIN_RGB = 0;
-    final int MAX_RGB = 255;
-
     EditText redEditText, greenEditText, blueEditText, opacityEditText;
-    int red, green, blue, opacity;
-    int redFirstDigit, greenFirstDigit, blueFirstDigit, opacityFirstDigit;
+    BrushColor brushColor;
     SeekBar redSeekBar, greenSeekBar, blueSeekBar, opacitySeekBar;
+    ImageView colorIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,44 +33,35 @@ public class ColorPicker extends AppCompatActivity {
         blueEditText = findViewById(R.id.blueEditText);
         opacityEditText = findViewById(R.id.opacityEditText);
 
-        red = 50;
-        blue = 50;
-        green = 50;
-        opacity = 50;
+        brushColor = new BrushColor(50, 50, 50, 50);
 
-        redFirstDigit = 5;
-        greenFirstDigit = 5;
-        blueFirstDigit = 5;
-        opacityFirstDigit = 5;
+        colorIV = findViewById(R.id.colorIV);
+        colorIV.setBackgroundColor(brushColor.getBrushColor());
 
-        redEditText.setText(String.valueOf(red));
-        greenEditText.setText(String.valueOf(green));
-        blueEditText.setText(String.valueOf(blue));
-        opacityEditText.setText(String.valueOf(opacity));
+        redEditText.setText(String.valueOf(brushColor.getRed()));
+        greenEditText.setText(String.valueOf(brushColor.getGreen()));
+        blueEditText.setText(String.valueOf(brushColor.getBlue()));
+        opacityEditText.setText(String.valueOf(brushColor.getOpacity()));
 
         redSeekBar = findViewById(R.id.redSeekBar);
         greenSeekBar = findViewById(R.id.greenSeekBar);
         blueSeekBar = findViewById(R.id.blueSeekBar);
         opacitySeekBar = findViewById(R.id.opacitySeekBar);
 
-        redSeekBar.setProgress(red);
-        greenSeekBar.setProgress(green);
-        blueSeekBar.setProgress(blue);
-        opacitySeekBar.setProgress(opacity);
+        redSeekBar.setProgress(brushColor.getRed());
+        greenSeekBar.setProgress(brushColor.getGreen());
+        blueSeekBar.setProgress(brushColor.getBlue());
+        opacitySeekBar.setProgress(brushColor.getOpacity());
 
         redEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 String rgbInput = redEditText.getText().toString();
-                if(rgbInput == null || rgbInput.isEmpty()){
-                    red = MIN_RGB;
-                }
-                else {
-                    redFirstDigit = Integer.parseInt(rgbInput.substring(0,1));
-                    red = Integer.parseInt(rgbInput);
-                    red = rgbCheckInBounds(red);
-                    redEditText.setText(String.valueOf(red));
-                    redSeekBar.setProgress(red);
+                if(!rgbInput.isEmpty()) {
+                    brushColor.setRed(rgbInput);
+                    redEditText.setText(String.valueOf(brushColor.getRed()));
+                    redSeekBar.setProgress(brushColor.getRed());
+                    colorIV.setBackgroundColor(brushColor.getBrushColor());
                     redEditText.setSelection(redEditText.getText().length());
                 }
                 return false;
@@ -81,8 +74,9 @@ public class ColorPicker extends AppCompatActivity {
                 if(!hasFocus){
                     String rgbInput = redEditText.getText().toString();
                     if(rgbInput.isEmpty()){
-                        red = redFirstDigit;
-                        redEditText.setText(String.valueOf(red));
+                        brushColor.setRed(brushColor.getRedFirstDigit());
+                        redEditText.setText(String.valueOf(brushColor.getRed()));
+                        colorIV.setBackgroundColor(brushColor.getBrushColor());
                     }
                 }
             }
@@ -91,8 +85,9 @@ public class ColorPicker extends AppCompatActivity {
         redSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                red = progress;
-                redEditText.setText(String.valueOf(red));
+                brushColor.setRed(progress);
+                redEditText.setText(String.valueOf(brushColor.getRed()));
+                colorIV.setBackgroundColor(brushColor.getBrushColor());
             }
 
             @Override
@@ -110,17 +105,14 @@ public class ColorPicker extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 String rgbInput = greenEditText.getText().toString();
-                if(rgbInput == null || rgbInput.isEmpty()){
-                    green = MIN_RGB;
-                }
-                else {
-                    greenFirstDigit = Integer.parseInt(rgbInput.substring(0,1));
-                    green = Integer.parseInt(rgbInput);
-                    green = rgbCheckInBounds(green);
-                    greenEditText.setText(String.valueOf(green));
-                    greenSeekBar.setProgress(green);
+                if(!rgbInput.isEmpty()){
+                    brushColor.setGreen(rgbInput);
+                    greenEditText.setText(String.valueOf(brushColor.getGreen()));
+                    greenSeekBar.setProgress(brushColor.getGreen());
+                    colorIV.setBackgroundColor(brushColor.getBrushColor());
                     greenEditText.setSelection(greenEditText.getText().length());
                 }
+
                 return false;
             }
         });
@@ -131,8 +123,9 @@ public class ColorPicker extends AppCompatActivity {
                 if(!hasFocus){
                     String rgbInput = greenEditText.getText().toString();
                     if(rgbInput.isEmpty()){
-                        green = greenFirstDigit;
-                        greenEditText.setText(String.valueOf(green));
+                        brushColor.setGreen(brushColor.getGreenFirstDigit());
+                        greenEditText.setText(String.valueOf(brushColor.getGreen()));
+                        colorIV.setBackgroundColor(brushColor.getBrushColor());
                     }
                 }
             }
@@ -141,8 +134,10 @@ public class ColorPicker extends AppCompatActivity {
         greenSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                green = progress;
-                greenEditText.setText(String.valueOf(green));
+                brushColor.setGreen(progress);
+                greenEditText.setText(String.valueOf(brushColor.getBlue()));
+                colorIV.setBackgroundColor(brushColor.getBrushColor());
+
             }
 
             @Override
@@ -160,15 +155,11 @@ public class ColorPicker extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 String rgbInput = blueEditText.getText().toString();
-                if(rgbInput == null || rgbInput.isEmpty()){
-                    blue = MIN_RGB;
-                }
-                else {
-                    blueFirstDigit = Integer.parseInt(rgbInput.substring(0,1));
-                    blue = Integer.parseInt(rgbInput);
-                    blue = rgbCheckInBounds(blue);
-                    blueEditText.setText(String.valueOf(blue));
-                    blueSeekBar.setProgress(blue);
+                if(! rgbInput.isEmpty()) {
+                    brushColor.setBlue(rgbInput);
+                    blueEditText.setText(String.valueOf(brushColor.getBlue()));
+                    blueSeekBar.setProgress(brushColor.getBlue());
+                    colorIV.setBackgroundColor(brushColor.getBrushColor());
                     blueEditText.setSelection(blueEditText.getText().length());
                 }
                 return false;
@@ -181,8 +172,9 @@ public class ColorPicker extends AppCompatActivity {
                 if(!hasFocus){
                     String rgbInput = blueEditText.getText().toString();
                     if(rgbInput.isEmpty()){
-                        blue = blueFirstDigit;
-                        blueEditText.setText(String.valueOf(blue));
+                        brushColor.setBlue(brushColor.getBlueFirstDigit());
+                        blueEditText.setText(String.valueOf(brushColor.getBlue()));
+                        colorIV.setBackgroundColor(brushColor.getBrushColor());
                     }
                 }
             }
@@ -191,8 +183,9 @@ public class ColorPicker extends AppCompatActivity {
         blueSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                blue = progress;
-                blueEditText.setText(String.valueOf(blue));
+                brushColor.setBlue(progress);
+                blueEditText.setText(String.valueOf(brushColor.getBlue()));
+                colorIV.setBackgroundColor(brushColor.getBrushColor());
             }
 
             @Override
@@ -210,15 +203,11 @@ public class ColorPicker extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 String rgbInput = opacityEditText.getText().toString();
-                if(rgbInput == null || rgbInput.isEmpty()){
-                    opacity = MIN_RGB;
-                }
-                else {
-                    opacityFirstDigit = Integer.parseInt(rgbInput.substring(0,1));
-                    opacity = Integer.parseInt(rgbInput);
-                    opacity = rgbCheckInBounds(opacity);
-                    opacityEditText.setText(String.valueOf(opacity));
-                    opacitySeekBar.setProgress(opacity);
+                if(!rgbInput.isEmpty()) {
+                    brushColor.setOpacity(rgbInput);
+                    opacityEditText.setText(String.valueOf(brushColor.getOpacity()));
+                    opacitySeekBar.setProgress(brushColor.getOpacity());
+                    colorIV.setBackgroundColor(brushColor.getBrushColor());
                     opacityEditText.setSelection(opacityEditText.getText().length());
                 }
                 return false;
@@ -231,8 +220,9 @@ public class ColorPicker extends AppCompatActivity {
                 if(!hasFocus){
                     String rgbInput = opacityEditText.getText().toString();
                     if(rgbInput.isEmpty()){
-                        opacity = opacityFirstDigit;
-                        opacityEditText.setText(String.valueOf(opacity));
+                        brushColor.setOpacity(brushColor.getOpacityFirstDigit());
+                        opacityEditText.setText(String.valueOf(brushColor.getOpacity()));
+                        colorIV.setBackgroundColor(brushColor.getBrushColor());
                     }
                 }
             }
@@ -241,8 +231,9 @@ public class ColorPicker extends AppCompatActivity {
         opacitySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                opacity = progress;
-                opacityEditText.setText(String.valueOf(opacity));
+                brushColor.setOpacity(progress);
+                opacityEditText.setText(String.valueOf(brushColor.getOpacity()));
+                colorIV.setBackgroundColor(brushColor.getBrushColor());
             }
 
             @Override
@@ -256,17 +247,5 @@ public class ColorPicker extends AppCompatActivity {
             }
         });
     }
-
-
-    public int rgbCheckInBounds(int rgbValue){
-        if(rgbValue < MIN_RGB){
-            return MIN_RGB;
-        }
-        if(rgbValue > MAX_RGB){
-            return MAX_RGB;
-        }
-        return rgbValue;
-    }
-
 
 }
