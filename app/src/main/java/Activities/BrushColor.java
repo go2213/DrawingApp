@@ -23,6 +23,18 @@ public class BrushColor {
         this.opacityFirstDigit = 0;
     }
 
+    public BrushColor(int color) {
+        this.red = Color.red(color);
+        this.green = Color.green(color);
+        this.blue = Color.blue(color);
+        this.opacity = Color.alpha(color);
+        this.redFirstDigit = 0;
+        this.greenFirstDigit = 0;
+        this.blueFirstDigit = 0;
+        this.opacityFirstDigit = 0;
+    }
+
+
 
     public void setRed(int redValue) {
         this.red = this.checkInBounds(redValue);
@@ -127,5 +139,13 @@ public class BrushColor {
         return rgbValue;
     }
 
-
+    @Override
+    public String toString() {
+        return "BrushColor{" +
+                "R=" + red +
+                ", G=" + green +
+                ", B=" + blue +
+                ", A=" + opacity +
+                '}';
+    }
 }

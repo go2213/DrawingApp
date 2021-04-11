@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context="Activities.DrawingActivity">
 
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:elevation="10dp"/>
+
 
     <Button
         android:id="@+id/clearButton"

@@ -1,6 +1,7 @@
 
 package Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +25,7 @@ import Dialogues.ClearConfirmationDialogue;
 import Views.CanvasView;
 
 
- public class DrawingActivity extends AppCompatActivity implements CanvasView.CanvasViewListener, ClearConfirmationDialogue.ClearConfirmationDialogueListener{
+ public class DrawingActivity extends AppCompatActivity implements CanvasView.CanvasViewListener, ClearConfirmationDialogue.ClearConfirmationDialogueListener, ColorPickerFragment.ColorPickerFragmentListener {
 
     ImageButton undoButton, redoButton;
     ImageView penImgView, highlighterImgView, pencilImgView, eraserImgView, penColorIV, highlighterColorIV, pencilColorIV, eraserColorIV;
@@ -32,6 +34,12 @@ import Views.CanvasView;
     CanvasView canvasView;
     ArrayList<ImageView> brushImgViews = new ArrayList<>();
     ArrayList<ImageView> colorImgViews = new ArrayList<>();
+
+     int selectedBrushIndex;
+     final int PEN_INDEX = 0;
+     final int HIGHLIGHTER_INDEX = 1;
+     final int PENCIL_INDEX = 2;
+     final int ERASER_INDEX = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +83,8 @@ import Views.CanvasView;
 
         penImgView.performClick();
 
-
     }
-
-    public void undoButtonClicked(View view) {
+     public void undoButtonClicked(View view) {
          canvasView.undoLastStroke();
          redoButton.setEnabled(true);
     }
@@ -113,9 +119,13 @@ import Views.CanvasView;
 
 
     public void penImgViewClicked(View view) {
+        colorButton.setEnabled(true);
         canvasView.setSelectedBrushToPen();
         penColorIV.setBackgroundColor(canvasView.getSelectedBrushColor());
-        Log.i("pen color: ", String.valueOf(canvasView.getSelectedBrushColor()));
+
+        BrushColor test5 = new BrushColor(canvasView.getSelectedBrushColor());
+        Log.i("pen color ", test5.toString());
+
         Drawable drawable = penImgView.getDrawable();
         if(drawable!=null){
             DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.black));
@@ -123,13 +133,18 @@ import Views.CanvasView;
         else{
             Log.i("Drawable is null!", "null");
         }
-        deselectAllOtherBrushes(0);
+        selectedBrushIndex = PEN_INDEX;
+        deselectAllOtherBrushes();
     }
 
     public void highlighterImgViewClicked(View view) {
+        colorButton.setEnabled(true);
         canvasView.setSelectedBrushToHighlighter();
         highlighterColorIV.setBackgroundColor(canvasView.getSelectedBrushColor());
-        Log.i("HL color: ", String.valueOf(canvasView.getSelectedBrushColor()));
+
+        BrushColor test5 = new BrushColor(canvasView.getSelectedBrushColor());
+        Log.i("HL color: ", test5.toString());
+
         Drawable drawable = highlighterImgView.getDrawable();
         if(drawable!=null){
             DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.selected_brush));
@@ -137,13 +152,18 @@ import Views.CanvasView;
         else{
             Log.i("Drawable is null!", "null");
         }
-        deselectAllOtherBrushes(1);
+        selectedBrushIndex = HIGHLIGHTER_INDEX;
+        deselectAllOtherBrushes();
     }
 
     public void pencilImgViewClicked(View view) {
+        colorButton.setEnabled(true);
         canvasView.setSelectedBrushToPencil();
         pencilColorIV.setBackgroundColor(canvasView.getSelectedBrushColor());
-        Log.i("pencil color: ", String.valueOf(canvasView.getSelectedBrushColor()));
+
+        BrushColor test5 = new BrushColor(canvasView.getSelectedBrushColor());
+        Log.i("pencil color: ", test5.toString());
+
         Drawable drawable = pencilImgView.getDrawable();
         if(drawable!=null){
             DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.selected_brush));
@@ -151,11 +171,13 @@ import Views.CanvasView;
         else{
             Log.i("Drawable is null!", "null");
         }
-        deselectAllOtherBrushes(2);
-
+        selectedBrushIndex = PENCIL_INDEX;
+        deselectAllOtherBrushes();
     }
 
     public void eraserImgViewClicked(View view) {
+        colorButton.setEnabled(false);
+        canvasView.setSelectedBrushToEraser();
         eraserColorIV.setBackgroundColor(Color.BLACK);
         Drawable drawable = eraserImgView.getDrawable();
         if(drawable!=null){
@@ -164,10 +186,11 @@ import Views.CanvasView;
         else{
             Log.i("Drawable is null!", "null");
         }
-        deselectAllOtherBrushes(3);
+        selectedBrushIndex = ERASER_INDEX;
+        deselectAllOtherBrushes();
     }
 
-    public void deselectAllOtherBrushes(int selectedBrushIndex){
+    public void deselectAllOtherBrushes(){
         for(int i =0 ; i< brushImgViews.size(); i++){
             if(i == selectedBrushIndex){
                 continue;
@@ -185,7 +208,19 @@ import Views.CanvasView;
 
 
      public void colorButtonClicked(View view) {
-         startActivity(new Intent(this, ColorPicker.class));
+         ColorPickerFragment colorPickerFragment = new ColorPickerFragment(canvasView.getSelectedBrushColor());
+         getSupportFragmentManager().beginTransaction()
+                 .replace(R.id.fragmentContainer, colorPickerFragment)
+                 .commit();
+     }
+
+
+     @Override
+     public void onColorSelectedFromPicker(int color) {
+         canvasView.setBrushColor(color);
+         colorImgViews.get(selectedBrushIndex).setBackgroundColor(color);
      }
  }
+
+
 

@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,17 +27,18 @@ public class CanvasView extends View {
     private Canvas canvas;
 
     private Path path = new Path();
-    private ArrayList<Stroke> pathList;
-    private ArrayList<Stroke> currentPathList;
-    private ArrayList<Stroke> undoList;
+    private final ArrayList<Stroke> pathList;
+    private final ArrayList<Stroke> currentPathList;
+    private final ArrayList<Stroke> undoList;
 
     private Paint selectedBrush;
 
     private final Paint pen = new Paint();
     private final Paint highlighter = new Paint();
     private final Paint pencil = new Paint();
+    private final Paint eraser = new Paint();
 
-    private CanvasViewListener canvasViewListener;
+    private final CanvasViewListener canvasViewListener;
     
     public CanvasView(Context context, CanvasViewListener canvasViewListener){
         super(context);
@@ -50,6 +52,7 @@ public class CanvasView extends View {
         this.setDefaultPenSettings();
         this.setDefaultHighlighterSettings();
         this.setDefaultPencilSettings();
+        this.setDefaultEraserSettings();
 
         this.setSelectedBrushToPen();
         layoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
@@ -81,7 +84,7 @@ public class CanvasView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 path.lineTo(pointX, pointY);
-                canvas.drawPath(path, selectedBrush);
+//                canvas.drawPath(path, selectedBrush);
                 pathList.add(new Stroke(path, selectedBrush));
                 path = new Path();
                 currentPathList.clear();
@@ -97,11 +100,10 @@ public class CanvasView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         for (Stroke Stroke : pathList) {
             canvas.drawPath(Stroke.getPath(), Stroke.getPaint());
         }
-        for (Stroke Stroke : currentPathList) {
+        for (Stroke Stroke : currentPathList) { // last path drawn that is currently being drawn
             canvas.drawPath(Stroke.getPath(), Stroke.getPaint());
         }
 
@@ -140,7 +142,13 @@ public class CanvasView extends View {
 
 
     public void setBrushColor(int color){
-        this.selectedBrush.setColor(color);
+//        this.selectedBrush.setColor(color);
+
+        // edit
+        Paint paint = this.selectedBrush;
+        paint.setColor(color);
+        this.selectedBrush = paint;
+
     }
 
     public void setBrushStrokeWidth(float width) {
@@ -157,6 +165,10 @@ public class CanvasView extends View {
 
     public void setSelectedBrushToPencil(){
         this.selectedBrush = this.pencil;
+    }
+
+    public void setSelectedBrushToEraser() {
+        this.selectedBrush = this.eraser;
     }
 
     public int getSelectedBrushColor(){
@@ -194,6 +206,15 @@ public class CanvasView extends View {
         pencil.setStrokeWidth(5f);
         pencil.setStrokeCap(Paint.Cap.SQUARE);
     }
+
+    private void setDefaultEraserSettings(){
+        eraser.setAntiAlias(true);
+        eraser.setColor(Color.WHITE);
+        eraser.setStyle(Paint.Style.STROKE);
+        eraser.setStrokeJoin(Paint.Join.ROUND);
+        eraser.setStrokeWidth(20f);
+    }
+
 
 
     public interface CanvasViewListener {

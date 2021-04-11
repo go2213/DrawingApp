@@ -1,52 +1,78 @@
 package Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.example.packag.R;
 
-public class ColorPicker extends AppCompatActivity {
 
+public class ColorPickerFragment extends Fragment {
+
+    private int currentBrushColor;
     EditText redEditText, greenEditText, blueEditText, opacityEditText;
     BrushColor brushColor;
     SeekBar redSeekBar, greenSeekBar, blueSeekBar, opacitySeekBar;
     ImageView colorIV;
+    ImageButton backImgBtn;
+    private ColorPickerFragmentListener listener;
+
+    public interface ColorPickerFragmentListener{
+        void onColorSelectedFromPicker(int color);
+    }
+
+    public ColorPickerFragment(int color) {
+        super();
+        this.currentBrushColor = color;
+    }
+    public void setCurrentBrushColor(int currentBrushColor) {
+        this.currentBrushColor = currentBrushColor;
+    }
+
+    public int getCurrentBrushColor() {
+        return this.currentBrushColor;
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_color_picker);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_color_picker, container, false);
 
-        redEditText = findViewById(R.id.redEditText);
-        greenEditText = findViewById(R.id.greenEditText);
-        blueEditText = findViewById(R.id.blueEditText);
-        opacityEditText = findViewById(R.id.opacityEditText);
+        backImgBtn = v.findViewById(R.id.backImgBtn);
+        redEditText = v.findViewById(R.id.redEditText);
+        greenEditText = v.findViewById(R.id.greenEditText);
+        blueEditText = v.findViewById(R.id.blueEditText);
+        opacityEditText = v.findViewById(R.id.opacityEditText);
 
-        brushColor = new BrushColor(50, 50, 50, 50);
-
-        colorIV = findViewById(R.id.colorIV);
+        brushColor = new BrushColor(this.currentBrushColor);
+        colorIV = v.findViewById(R.id.colorIV);
         colorIV.setBackgroundColor(brushColor.getBrushColor());
+
 
         redEditText.setText(String.valueOf(brushColor.getRed()));
         greenEditText.setText(String.valueOf(brushColor.getGreen()));
         blueEditText.setText(String.valueOf(brushColor.getBlue()));
         opacityEditText.setText(String.valueOf(brushColor.getOpacity()));
 
-        redSeekBar = findViewById(R.id.redSeekBar);
-        greenSeekBar = findViewById(R.id.greenSeekBar);
-        blueSeekBar = findViewById(R.id.blueSeekBar);
-        opacitySeekBar = findViewById(R.id.opacitySeekBar);
+        redSeekBar = v.findViewById(R.id.redSeekBar);
+        greenSeekBar = v.findViewById(R.id.greenSeekBar);
+        blueSeekBar = v.findViewById(R.id.blueSeekBar);
+        opacitySeekBar = v.findViewById(R.id.opacitySeekBar);
 
         redSeekBar.setProgress(brushColor.getRed());
         greenSeekBar.setProgress(brushColor.getGreen());
@@ -246,6 +272,32 @@ public class ColorPicker extends AppCompatActivity {
                 // do nothing
             }
         });
+        backImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().remove(ColorPickerFragment.this).commit();
+                listener.onColorSelectedFromPicker(brushColor.getBrushColor());
+            }
+        });
+
+        return v;
     }
+
+
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof ColorPickerFragmentListener){
+            listener = (ColorPickerFragmentListener) context;
+        }
+        else{
+            throw new RuntimeException((context.toString()
+                    + " must implement ColorPickerFragmentListener"));
+        }
+    }
+
+
 
 }
