@@ -76,17 +76,17 @@ public class CanvasView extends View {
 
         switch(event.getAction()){
             case MotionEvent.ACTION_DOWN: // when the user first touches the screen
+                path = new Path();
                 path.moveTo(pointX, pointY);
                 return true;
             case MotionEvent.ACTION_MOVE:
                 path.lineTo(pointX, pointY);  // A change has happened during a press gesture (between ACTION_DOWN and ACTION_UP)
+                currentPathList.clear();
                 currentPathList.add(new Stroke(path, selectedBrush));
                 break;
             case MotionEvent.ACTION_UP:
                 path.lineTo(pointX, pointY);
-//                canvas.drawPath(path, selectedBrush);
                 pathList.add(new Stroke(path, selectedBrush));
-                path = new Path();
                 currentPathList.clear();
                 canvasViewListener.enableUndoButton(true);
                 break;
@@ -100,13 +100,16 @@ public class CanvasView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        for (Stroke Stroke : pathList) {
-            canvas.drawPath(Stroke.getPath(), Stroke.getPaint());
+        for (Stroke stroke : pathList) {
+            selectedBrush.setColor(stroke.getColor());
+            selectedBrush.setStrokeWidth(stroke.getSize());
+            canvas.drawPath(stroke.getPath(), selectedBrush);
         }
-        for (Stroke Stroke : currentPathList) { // last path drawn that is currently being drawn
-            canvas.drawPath(Stroke.getPath(), Stroke.getPaint());
+        for (Stroke stroke : currentPathList) { // last path drawn that is currently being drawn
+            selectedBrush.setColor(stroke.getColor());
+            selectedBrush.setStrokeWidth(stroke.getSize());
+            canvas.drawPath(stroke.getPath(), selectedBrush);
         }
-
 
     }
 
@@ -142,12 +145,7 @@ public class CanvasView extends View {
 
 
     public void setBrushColor(int color){
-//        this.selectedBrush.setColor(color);
-
-        // edit
-        Paint paint = this.selectedBrush;
-        paint.setColor(color);
-        this.selectedBrush = paint;
+        this.selectedBrush.setColor(color);
 
     }
 
@@ -173,7 +171,7 @@ public class CanvasView extends View {
 
     public int getSelectedBrushColor(){
         int color = selectedBrush.getColor();
-        return Color.rgb(Color.red(color), Color.green(color), Color.blue(color));
+        return Color.argb(Color.alpha(color), Color.red(color), Color.green(color), Color.blue(color));
     }
 
 

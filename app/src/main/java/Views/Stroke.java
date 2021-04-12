@@ -1,5 +1,6 @@
 package Views;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 
@@ -7,11 +8,22 @@ import java.util.ArrayList;
 
 class Stroke {
         private final Path path;
-        private final Paint paint;
+        private final int color;
+        private final float size;
+
         public Stroke(Path path, Paint paint) {
             this.path = path;
-            this.paint = paint;
+            this.color = paint.getColor();
+            this.size = paint.getStrokeWidth();
         }
+
         public Path getPath() { return this.path; }
-        public Paint getPaint() { return this.paint; }
+
+        public int getColor() {
+            return color;
+        }
+
+        public float getSize() {
+            return size;
+        }
 }
