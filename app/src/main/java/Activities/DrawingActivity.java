@@ -22,6 +22,7 @@ import com.example.packag.R;
 import java.util.ArrayList;
 
 import Dialogues.ClearConfirmationDialogue;
+import Utils.AppSession;
 import Views.CanvasView;
 
 
@@ -40,6 +41,7 @@ import Views.CanvasView;
      final int HIGHLIGHTER_INDEX = 1;
      final int PENCIL_INDEX = 2;
      final int ERASER_INDEX = 3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,8 @@ import Views.CanvasView;
         canvasContainer.addView(canvasView);
 
         penImgView.performClick();
+
+
 
     }
      public void undoButtonClicked(View view) {
@@ -214,12 +218,21 @@ import Views.CanvasView;
                  .commit();
      }
 
+     public void sizeButtonClicked(View view) {
+         ChangePenSize penSizeFragment =  ChangePenSize.newInstance("","");
+         getSupportFragmentManager().beginTransaction()
+                 .replace(R.id.fragmentContainer, penSizeFragment)
+                 .commit();
+     }
+
 
      @Override
      public void onColorSelectedFromPicker(int color) {
          canvasView.setBrushColor(color);
          colorImgViews.get(selectedBrushIndex).setBackgroundColor(color);
      }
+
+     
  }
 
 

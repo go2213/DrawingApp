@@ -15,6 +15,8 @@ import android.view.WindowManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Utils.AppSession;
+
 
 public class CanvasView extends View {
     public WindowManager.LayoutParams layoutParams;
@@ -39,10 +41,10 @@ public class CanvasView extends View {
     private final Paint eraser = new Paint();
 
     private final CanvasViewListener canvasViewListener;
-    
+    public AppSession appSession;
     public CanvasView(Context context, CanvasViewListener canvasViewListener){
         super(context);
-
+        appSession = new AppSession(context, AppSession.PREF_APP);
         this.canvasViewListener = canvasViewListener;
         this.pathList = new ArrayList<>();
 
@@ -56,6 +58,7 @@ public class CanvasView extends View {
 
         this.setSelectedBrushToPen();
         layoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+
     }
 
     @Override
@@ -156,18 +159,22 @@ public class CanvasView extends View {
     }
 
     public void setSelectedBrushToPen(){
+        this.pen.setStrokeWidth(Float.parseFloat(appSession.getpensize()));
         this.selectedBrush = this.pen;
     }
 
     public void setSelectedBrushToHighlighter(){
+        this.highlighter.setStrokeWidth(Float.parseFloat(appSession.getHighLighterSize()));
         this.selectedBrush = this.highlighter;
     }
 
     public void setSelectedBrushToPencil(){
+        this.pencil.setStrokeWidth(Float.parseFloat(appSession.getPencilSize()));
         this.selectedBrush = this.pencil;
     }
 
     public void setSelectedBrushToEraser() {
+        this.eraser.setStrokeWidth(Float.parseFloat(appSession.getereasedSize()));
         this.selectedBrush = this.eraser;
     }
 
