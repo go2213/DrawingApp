@@ -71,8 +71,8 @@
         android:id="@+id/penImgView"
         android:layout_width="50dp"
         android:layout_height="75dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
         android:onClick="penImgViewClicked"
         android:scaleType="fitXY"
         android:src="@drawable/pen"
@@ -171,9 +171,6 @@
         android:id="@+id/colorButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="20dp"
         android:text="color"
         app:layout_constraintBottom_toBottomOf="@id/eraserImgView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -182,6 +179,17 @@
         app:layout_constraintTop_toTopOf="@+id/eraserImgView"
         app:layout_constraintVertical_bias="0.0"
         android:onClick="colorButtonClicked"/>
+    <Button
+        android:id="@+id/sizeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/eraserImgView"
+        app:layout_constraintTop_toBottomOf="@id/colorButton"
+        app:layout_constraintVertical_bias="0.0"
+        android:onClick="sizeButtonClicked"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

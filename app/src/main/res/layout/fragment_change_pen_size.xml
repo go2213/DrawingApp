@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context="Activities.ChangePenSize">
+
+    <ImageButton
+        android:id="@+id/backImgBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/ic_baseline_arrow_back_ios_new_24"
+        app:layout_constraintBottom_toBottomOf="@+id/titleTV"
+        app:layout_constraintEnd_toStartOf="@+id/titleTV"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/titleTV"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_goneMarginStart="4dp" />
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Sizes"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.015" />
+
+
+
+    <SeekBar
+        android:id="@+id/penSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/titleTV"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/backImgBtn"
+        app:layout_constraintTop_toBottomOf="@+id/titleTV"
+        android:visibility="visible"
+        app:layout_constraintVertical_bias="0.012"
+        android:max="100"/>
+
+    <ImageView
+        android:id="@+id/imgPen"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:src="@drawable/pen"
+        app:layout_constraintBottom_toBottomOf="@+id/penSeekBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/penSeekBar"
+        app:layout_constraintTop_toTopOf="@+id/penSeekBar"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp" />
+
+
+
+
+    <SeekBar
+        android:id="@+id/highLighterSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/penSeekBar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/penSeekBar"
+        app:layout_constraintTop_toBottomOf="@+id/imgPen"
+        app:layout_constraintVertical_bias="0.0"
+        android:max="100"/>
+
+    <ImageView
+        android:id="@+id/imgHighlighter"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:src="@drawable/highlighter"
+        app:layout_constraintBottom_toBottomOf="@+id/highLighterSeekBar"
+        app:layout_constraintEnd_toEndOf="@+id/imgPen"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/highLighterSeekBar"
+        app:layout_constraintTop_toTopOf="@+id/highLighterSeekBar" />
+
+
+
+    <SeekBar
+        android:id="@+id/pencliSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/highLighterSeekBar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/highLighterSeekBar"
+        app:layout_constraintTop_toBottomOf="@+id/imgHighlighter"
+        app:layout_constraintVertical_bias="0.0"
+        android:max="100"/>
+
+    <ImageView
+        android:id="@+id/imgPencil"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:src="@drawable/pencil"
+        app:layout_constraintBottom_toBottomOf="@+id/pencliSeekBar"
+        app:layout_constraintEnd_toEndOf="@+id/imgHighlighter"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/pencliSeekBar"
+        app:layout_constraintTop_toTopOf="@+id/pencliSeekBar"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+
+
+    <SeekBar
+        android:id="@+id/ereasedSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/pencliSeekBar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/pencliSeekBar"
+        app:layout_constraintTop_toBottomOf="@+id/imgPencil"
+        android:visibility="visible"
+        app:layout_constraintVertical_bias="0.0"
+        android:max="255"/>
+
+    <ImageView
+        android:id="@+id/eraserImgView"
+        android:src="@drawable/eraser"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ereasedSeekBar"
+        app:layout_constraintEnd_toEndOf="@+id/imgPencil"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/ereasedSeekBar"
+        app:layout_constraintTop_toTopOf="@+id/ereasedSeekBar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:visibility="visible"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eraserImgView"
+        app:layout_constraintVertical_bias="0.057"
+        tools:layout_editor_absoluteX="0dp" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
