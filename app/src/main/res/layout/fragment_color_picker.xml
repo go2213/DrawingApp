@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageButton
+        android:id="@+id/backImgBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/ic_baseline_arrow_back_ios_new_24"
+        app:layout_constraintBottom_toBottomOf="@+id/titleTV"
+        app:layout_constraintEnd_toStartOf="@+id/titleTV"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/titleTV"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_goneMarginStart="4dp"/>
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Colors"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.015" />
+
+    <TextView
+        android:id="@+id/redTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="Red"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/titleTV"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/backImgBtn"
+        app:layout_constraintTop_toBottomOf="@+id/titleTV"
+        app:layout_constraintVertical_bias="0.012" />
+
+    <SeekBar
+        android:id="@+id/redSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/redTV"
+        app:layout_constraintTop_toBottomOf="@+id/redTV"
+        app:layout_constraintVertical_bias="0.0"
+        android:max="255"/>
+
+    <EditText
+        android:id="@+id/redEditText"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:background="@color/cardview_shadow_start_color"
+        android:textSize="30dp"
+        android:hint="100"
+        android:maxLength="3"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/redSeekBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/redSeekBar"
+        app:layout_constraintTop_toTopOf="@+id/redSeekBar"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp" />
+
+
+    <TextView
+        android:id="@+id/greenTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Green"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/titleTV"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/redSeekBar"
+        app:layout_constraintTop_toBottomOf="@id/redSeekBar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <SeekBar
+        android:id="@+id/greenSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/redSeekBar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/greenTV"
+        app:layout_constraintTop_toBottomOf="@+id/greenTV"
+        app:layout_constraintVertical_bias="0.0"
+        android:max="255"/>
+
+    <EditText
+        android:id="@+id/greenEditText"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_shadow_start_color"
+        android:textSize="30dp"
+        android:hint="100"
+        android:maxLength="3"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/greenSeekBar"
+        app:layout_constraintEnd_toEndOf="@+id/redEditText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/greenSeekBar"
+        app:layout_constraintTop_toTopOf="@+id/greenSeekBar" />
+
+    <TextView
+        android:id="@+id/blueTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Blue"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/titleTV"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/greenSeekBar"
+        app:layout_constraintTop_toBottomOf="@+id/greenSeekBar" />
+
+    <SeekBar
+        android:id="@+id/blueSeekBar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/greenSeekBar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/blueTV"
+        app:layout_constraintTop_toBottomOf="@+id/blueTV"
+        app:layout_constraintVertical_bias="0.0"
+        android:max="255"/>
+
+    <EditText
+        android:id="@+id/blueEditText"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_shadow_start_color"
+        android:textSize="30dp"
+        android:hint="100"
+        android:inputType="number"
+        android:maxLength="3"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/blueSeekBar"
+        app:layout_constraintEnd_toEndOf="@+id/greenEditText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/blueSeekBar"
+        app:layout_constraintTop_toTopOf="@+id/blueSeekBar"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/opacityTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Opacity"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/titleTV"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/blueSeekBar"
+        app:layout_constraintTop_toBottomOf="@+id/blueSeekBar" />
+
+    <SeekBar
+        android:id="@+id/opacitySeekBar"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/blueSeekBar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/opacityTV"
+        app:layout_constraintTop_toBottomOf="@+id/opacityTV"
+        app:layout_constraintVertical_bias="0.0"
+        android:max="255"/>
+
+    <EditText
+        android:id="@+id/opacityEditText"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_shadow_start_color"
+        android:textSize="30dp"
+        android:hint="100"
+        android:inputType="number"
+        android:maxLength="3"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/opacitySeekBar"
+        app:layout_constraintEnd_toEndOf="@+id/blueEditText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/opacitySeekBar"
+        app:layout_constraintTop_toTopOf="@+id/opacitySeekBar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opacitySeekBar"
+        app:layout_constraintVertical_bias="0.057"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ImageView
+        android:id="@+id/colorIV"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/titleTV"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/opacitySeekBar"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.016" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
