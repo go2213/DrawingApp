@@ -161,7 +161,7 @@ public class ColorPickerFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 brushColor.setGreen(progress);
-                greenEditText.setText(String.valueOf(brushColor.getBlue()));
+                greenEditText.setText(String.valueOf(brushColor.getGreen()));
                 colorIV.setBackgroundColor(brushColor.getBrushColor());
 
             }
