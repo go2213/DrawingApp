@@ -1,0 +1,26 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400px"
+    android:height="400px"
+    android:viewportWidth="400.0"
+    android:viewportHeight="400.0"
+    android:tint="?attr/colorControlNormal">
+
+    <path
+        android:name="penTip"
+        android:fillColor="#0000FF"
+        android:strokeColor="#0000FF"
+        android:strokeWidth="4"
+        android:pathData="M170, 55  L230, 55 L230, 20 L170, 0 z" />
+
+    <path
+
+        android:fillColor="#0000FF"
+        android:strokeColor="#0000FF"
+        android:strokeWidth="4"
+        android:pathData="M100,150 L300,150 L250, 75 L150, 75 z" />
+    <path
+        android:fillColor="#E8C2A1"
+        android:strokeColor="#E8C2A1"
+        android:strokeWidth="4"
+        android:pathData="M100,170 L300,170 L300, 420 L 100, 420 z" />
+</vector>
