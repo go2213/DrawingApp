@@ -25,9 +25,10 @@ import java.util.ArrayList;
 import Dialogues.ClearConfirmationDialogue;
 import Utils.AppSession;
 import Views.CanvasView;
+import interfaces.changeStrokeInterface;
 
 
- public class DrawingActivity extends AppCompatActivity implements CanvasView.CanvasViewListener, ClearConfirmationDialogue.ClearConfirmationDialogueListener, ColorPickerFragment.ColorPickerFragmentListener {
+public class DrawingActivity extends AppCompatActivity implements CanvasView.CanvasViewListener, ClearConfirmationDialogue.ClearConfirmationDialogueListener, ColorPickerFragment.ColorPickerFragmentListener {
 
     RelativeLayout canvasContainer;
 
@@ -37,7 +38,7 @@ import Views.CanvasView;
     CanvasView canvasView;
     ArrayList<ImageView> brushImgViews = new ArrayList<>();
     ArrayList<ImageView> colorImgViews = new ArrayList<>();
-
+    changeStrokeInterface changeStrokeInterface1;
      int selectedBrushIndex;
      final int PEN_INDEX = 0;
      final int HIGHLIGHTER_INDEX = 1;
@@ -85,6 +86,12 @@ import Views.CanvasView;
         canvasContainer = findViewById(R.id.canvasContainer);
         canvasContainer.addView(canvasView);
 
+        changeStrokeInterface1 = new changeStrokeInterface() {
+            @Override
+            public void changeStroke() {
+                canvasView.selectStroke();
+            }
+        };
         penImgView.performClick();
     }
      public void undoButtonClicked(View view) {
@@ -219,6 +226,8 @@ import Views.CanvasView;
 
      public void sizeButtonClicked(View view) {
          ChangePenSize penSizeFragment =  ChangePenSize.newInstance("","");
+         penSizeFragment.changeStrokeInterface(changeStrokeInterface1);
+
          getSupportFragmentManager().beginTransaction()
                  .replace(R.id.fragmentContainer, penSizeFragment)
                  .commit();
