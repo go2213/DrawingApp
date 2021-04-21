@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
 import android.widget.RelativeLayout;
 import com.example.packag.R;
 
@@ -29,6 +30,7 @@ import Views.CanvasView;
  public class DrawingActivity extends AppCompatActivity implements CanvasView.CanvasViewListener, ClearConfirmationDialogue.ClearConfirmationDialogueListener, ColorPickerFragment.ColorPickerFragmentListener {
 
     RelativeLayout canvasContainer;
+
     ImageButton undoButton, redoButton;
     ImageView penImgView, highlighterImgView, pencilImgView, eraserImgView, penColorIV, highlighterColorIV, pencilColorIV, eraserColorIV;
     Button clearButton, colorButton;
@@ -47,6 +49,7 @@ import Views.CanvasView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
+
 
         undoButton = findViewById(R.id.undoButton);
         redoButton = findViewById(R.id.redoButton);
@@ -78,11 +81,10 @@ import Views.CanvasView;
         colorImgViews.add(eraserColorIV);
 
 
-
-
         canvasView = new CanvasView(this, this);
         canvasContainer = findViewById(R.id.canvasContainer);
         canvasContainer.addView(canvasView);
+
         penImgView.performClick();
     }
      public void undoButtonClicked(View view) {
@@ -231,7 +233,6 @@ import Views.CanvasView;
 
      
  }
-
 
 
 

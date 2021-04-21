@@ -37,11 +37,9 @@ public class CanvasView extends View {
     private final Paint highlighter = new Paint();
     private final Paint pencil = new Paint();
     private final Paint eraser = new Paint();
-
-
     private final CanvasViewListener canvasViewListener;
-
-    public AppSession appSession;
+    private final AppSession appSession;
+    
     public CanvasView(Context context, CanvasViewListener canvasViewListener){
         super(context);
         appSession = new AppSession(context, AppSession.PREF_APP);
@@ -73,6 +71,8 @@ public class CanvasView extends View {
                 path.moveTo(pointX, pointY);
                 return true;
             case MotionEvent.ACTION_MOVE:
+
+                path.lineTo(pointX, pointY);
                 path.lineTo(pointX, pointY);  // A change has happened during a press gesture (between ACTION_DOWN and ACTION_UP)
                 currentPathList.clear();
                 currentPathList.add(new Stroke(path, selectedBrush));
@@ -158,6 +158,8 @@ public class CanvasView extends View {
         this.pencil.setStrokeWidth(Float.parseFloat(appSession.getPencilSize()));
         this.selectedBrush = this.pencil;
     }
+
+    
     public void setSelectedBrushToEraser() {
         this.eraser.setStrokeWidth(Float.parseFloat(appSession.getereasedSize()));
         this.selectedBrush = this.eraser;
