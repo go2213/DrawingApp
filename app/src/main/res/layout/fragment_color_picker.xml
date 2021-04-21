@@ -38,15 +38,14 @@
         android:id="@+id/redTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:text="Red"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/titleTV"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/backImgBtn"
-        app:layout_constraintTop_toBottomOf="@+id/titleTV"
-        app:layout_constraintVertical_bias="0.012" />
+        app:layout_constraintTop_toBottomOf="@+id/colorIV"
+        app:layout_constraintVertical_bias="0.076" />
 
     <SeekBar
         android:id="@+id/redSeekBar"
@@ -59,17 +58,14 @@
         app:layout_constraintVertical_bias="0.0"
         android:max="255"/>
 
-    <EditText
-        android:id="@+id/redEditText"
+    <TextView
+        android:id="@+id/redTextView"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:background="@color/cardview_shadow_start_color"
         android:textSize="30dp"
         android:hint="100"
-        android:maxLength="3"
-        android:inputType="number"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/redSeekBar"
@@ -107,19 +103,16 @@
         app:layout_constraintVertical_bias="0.0"
         android:max="255"/>
 
-    <EditText
-        android:id="@+id/greenEditText"
+    <TextView
+        android:id="@+id/greenTextView"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:background="@color/cardview_shadow_start_color"
         android:textSize="30dp"
         android:hint="100"
-        android:maxLength="3"
-        android:inputType="number"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/greenSeekBar"
-        app:layout_constraintEnd_toEndOf="@+id/redEditText"
+        app:layout_constraintEnd_toEndOf="@+id/redTextView"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/greenSeekBar"
         app:layout_constraintTop_toTopOf="@+id/greenSeekBar" />
@@ -149,19 +142,16 @@
         app:layout_constraintVertical_bias="0.0"
         android:max="255"/>
 
-    <EditText
-        android:id="@+id/blueEditText"
+    <TextView
+        android:id="@+id/blueTextView"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:background="@color/cardview_shadow_start_color"
         android:textSize="30dp"
         android:hint="100"
-        android:inputType="number"
-        android:maxLength="3"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/blueSeekBar"
-        app:layout_constraintEnd_toEndOf="@+id/greenEditText"
+        app:layout_constraintEnd_toEndOf="@+id/greenTextView"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/blueSeekBar"
         app:layout_constraintTop_toTopOf="@+id/blueSeekBar"
@@ -193,19 +183,16 @@
         app:layout_constraintVertical_bias="0.0"
         android:max="255"/>
 
-    <EditText
-        android:id="@+id/opacityEditText"
+    <TextView
+        android:id="@+id/opacityTextView"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:background="@color/cardview_shadow_start_color"
         android:textSize="30dp"
         android:hint="100"
-        android:inputType="number"
-        android:maxLength="3"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/opacitySeekBar"
-        app:layout_constraintEnd_toEndOf="@+id/blueEditText"
+        app:layout_constraintEnd_toEndOf="@+id/blueTextView"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/opacitySeekBar"
         app:layout_constraintTop_toTopOf="@+id/opacitySeekBar"
@@ -224,18 +211,19 @@
 
     <ImageView
         android:id="@+id/colorIV"
-        android:layout_width="80dp"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:background="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/titleTV"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/opacitySeekBar"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.016" />
-
+        app:layout_constraintStart_toStartOf="@+id/backImgBtn"
+        app:layout_constraintTop_toBottomOf="@+id/titleTV"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
