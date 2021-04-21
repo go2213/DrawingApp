@@ -14,6 +14,8 @@ import android.widget.SeekBar;
 import com.example.packag.R;
 
 import Utils.AppSession;
+import Views.CanvasView;
+import interfaces.changeStrokeInterface;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,10 +33,12 @@ public class ChangePenSize extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    SeekBar penSeekBar, pencilSeekBar, highLighterSeekBar,ereasedSeekBar;
+    SeekBar penSeekBar, pencilSeekBar, highLighterSeekBar, ereasedSeekBar;
     ImageButton backImgBtn;
 
     public AppSession appSession;
+    changeStrokeInterface changeStrokeInterface1;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -60,6 +64,7 @@ public class ChangePenSize extends Fragment {
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,7 +76,7 @@ public class ChangePenSize extends Fragment {
         penSeekBar = v.findViewById(R.id.penSeekBar);
         pencilSeekBar = v.findViewById(R.id.pencliSeekBar);
         highLighterSeekBar = v.findViewById(R.id.highLighterSeekBar);
-        ereasedSeekBar  = v.findViewById(R.id.ereasedSeekBar);
+        ereasedSeekBar = v.findViewById(R.id.ereasedSeekBar);
         pencilSeekBar.setProgress(Integer.parseInt(appSession.getPencilSize()));
         penSeekBar.setProgress(Integer.parseInt(appSession.getpensize()));
         ereasedSeekBar.setProgress(Integer.parseInt(appSession.getereasedSize()));
@@ -81,6 +86,7 @@ public class ChangePenSize extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 appSession.setpensize(String.valueOf(penSeekBar.getProgress()));
+                changeStrokeInterface1.changeStroke();
             }
 
             @Override
@@ -113,6 +119,7 @@ public class ChangePenSize extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 appSession.setHighLighterSize(String.valueOf(highLighterSeekBar.getProgress()));
+                changeStrokeInterface1.changeStroke();
             }
 
             @Override
@@ -130,6 +137,7 @@ public class ChangePenSize extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 appSession.setEreasedSize(String.valueOf(ereasedSeekBar.getProgress()));
+                changeStrokeInterface1.changeStroke();
             }
 
             @Override
@@ -151,5 +159,9 @@ public class ChangePenSize extends Fragment {
             }
         });
         return v;
+    }
+
+    public void changeStrokeInterface(changeStrokeInterface changeStrokeInterface1) {
+        this.changeStrokeInterface1 = changeStrokeInterface1;
     }
 }

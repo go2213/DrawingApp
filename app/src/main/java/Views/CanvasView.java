@@ -225,5 +225,14 @@ public class CanvasView extends View {
         void enableRedoButton(boolean isEnabled);
     }
 
+    public void selectStroke(){
+        this.pen.setStrokeWidth(Float.parseFloat(appSession.getpensize()));
+        this.highlighter.setStrokeWidth(Float.parseFloat(appSession.getHighLighterSize()));
+        this.pencil.setStrokeWidth(Float.parseFloat(appSession.getPencilSize()));
+        this.eraser.setStrokeWidth(Float.parseFloat(appSession.getereasedSize()));
+
+
+    }
+
 }
 
