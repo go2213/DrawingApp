@@ -32,9 +32,8 @@ public class DrawingActivity extends AppCompatActivity implements CanvasView.Can
 
     RelativeLayout canvasContainer;
 
-    ImageButton undoButton, redoButton;
+    ImageButton undoButton, redoButton, colorButton, clearButton;
     ImageView penImgView, highlighterImgView, pencilImgView, eraserImgView, penColorIV, highlighterColorIV, pencilColorIV, eraserColorIV;
-    Button clearButton, colorButton;
     CanvasView canvasView;
     ArrayList<ImageView> brushImgViews = new ArrayList<>();
     ArrayList<ImageView> colorImgViews = new ArrayList<>();
@@ -56,7 +55,6 @@ public class DrawingActivity extends AppCompatActivity implements CanvasView.Can
         redoButton = findViewById(R.id.redoButton);
         clearButton = findViewById(R.id.clearButton);
         colorButton = findViewById(R.id.colorButton);
-
         redoButton.setEnabled(false);
         undoButton.setEnabled(false);
 

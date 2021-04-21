@@ -96,11 +96,13 @@ public class CanvasView extends View {
         for (Stroke stroke : pathList) {
             selectedBrush.setColor(stroke.getColor());
             selectedBrush.setStrokeWidth(stroke.getSize());
+            selectedBrush.setStrokeCap(stroke.getStrokeCap());
             canvas.drawPath(stroke.getPath(), selectedBrush);
         }
         for (Stroke stroke : currentPathList) { // last path drawn that is currently being drawn
             selectedBrush.setColor(stroke.getColor());
             selectedBrush.setStrokeWidth(stroke.getSize());
+            selectedBrush.setStrokeCap(stroke.getStrokeCap());
             canvas.drawPath(stroke.getPath(), selectedBrush);
         }
 
@@ -182,10 +184,8 @@ public class CanvasView extends View {
 
     private void setDefaultHighlighterSettings(){
         highlighter.setAntiAlias(true);
-        highlighter.setARGB(200,238, 255, 0);
+        highlighter.setARGB(150,238, 255, 0);
         highlighter.setStyle(Paint.Style.STROKE);
-//        highlighter.setColor(Color.YELLOW);
-//        highlighter.setAlpha(200);
         highlighter.setStrokeJoin(Paint.Join.ROUND);
         highlighter.setStrokeWidth(30f);
         highlighter.setStrokeCap(Paint.Cap.SQUARE);
@@ -193,11 +193,10 @@ public class CanvasView extends View {
 
     private void setDefaultPencilSettings(){
         pencil.setAntiAlias(true);
-        pencil.setARGB(23,23, 23, 10);
+        pencil.setARGB(255,112, 112, 112);
         pencil.setStyle(Paint.Style.STROKE);
         pencil.setStrokeJoin(Paint.Join.ROUND);
-        pencil.setStrokeWidth(5f);
-        pencil.setStrokeCap(Paint.Cap.SQUARE);
+        pencil.setStrokeWidth(3f);
     }
 
     private void setDefaultEraserSettings(){
@@ -221,8 +220,6 @@ public class CanvasView extends View {
         this.highlighter.setStrokeWidth(Float.parseFloat(appSession.getHighLighterSize()));
         this.pencil.setStrokeWidth(Float.parseFloat(appSession.getPencilSize()));
         this.eraser.setStrokeWidth(Float.parseFloat(appSession.getereasedSize()));
-
-
     }
 
 }

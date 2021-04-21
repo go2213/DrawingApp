@@ -10,4 +10,5 @@
     <color name="gray">#787878</color>
     <color name="selected_brush">#FF000000</color>
     <color name="deselected_brush">#787878</color>
+    <color name="main_background_gray">#f2f2f2</color>
 </resources>

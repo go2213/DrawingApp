@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Activities.DrawingActivity">
+    tools:context="Activities.DrawingActivity"
+    android:background="@color/main_background_gray">
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
@@ -13,19 +13,20 @@
         android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:elevation="10dp"/>
+        android:elevation="10dp">
+    </FrameLayout>
 
 
-
-    <Button
+    <ImageButton
         android:id="@+id/clearButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
+        android:background="@drawable/ic_baseline_layers_clear_24"
         android:onClick="clearButtonClicked"
-        android:text="clear"
         app:layout_constraintBottom_toTopOf="@+id/canvasContainer"
-        app:layout_constraintEnd_toStartOf="@+id/undoButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -36,37 +37,44 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_baseline_undo_24"
         android:onClick="undoButtonClicked"
+        android:layout_marginStart="60dp"
         app:layout_constraintBottom_toBottomOf="@+id/clearButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/clearButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginLeft="30dp" />
 
     <ImageButton
         android:id="@+id/redoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_baseline_redo_24"
-        app:layout_constraintBottom_toTopOf="@+id/canvasContainer"
+        android:onClick="redoButtonClicked"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/undoButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/undoButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        android:onClick="redoButtonClicked"/>
+        app:layout_constraintTop_toTopOf="@+id/undoButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <RelativeLayout
         android:id="@+id/canvasContainer"
-        android:layout_width="417dp"
-        android:layout_height="583dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="530dp"
+        android:layout_marginTop="120dp"
         android:layout_marginBottom="85dp"
+        app:layout_goneMarginTop="10dp"
         app:layout_constraintBottom_toTopOf="@id/pencilImgView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/undoButton"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:background="@color/white">
+    </RelativeLayout>
+
 
     <ImageView
         android:id="@+id/penImgView"
@@ -168,29 +176,58 @@
         app:layout_constraintTop_toBottomOf="@+id/eraserImgView"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/colorButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="color"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_baseline_color_lens_24"
+        android:onClick="colorButtonClicked"
         app:layout_constraintBottom_toBottomOf="@id/eraserImgView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/eraserImgView"
         app:layout_constraintTop_toTopOf="@+id/eraserImgView"
-        app:layout_constraintVertical_bias="0.0"
-        android:onClick="colorButtonClicked"/>
-    <Button
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/colorTV"
+        android:layout_width="45dp"
+        android:layout_height="17dp"
+        android:text="Color"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/colorButton"
+        app:layout_constraintStart_toEndOf="@+id/eraserImgView"
+        app:layout_constraintTop_toBottomOf="@+id/colorButton"
+        android:gravity="center_horizontal" />
+
+    <ImageButton
         android:id="@+id/sizeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="size"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/ic_baseline_radio_button_checked_24"
+        android:onClick="sizeButtonClicked"
+        app:layout_constraintBottom_toBottomOf="@+id/colorButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/eraserImgView"
-        app:layout_constraintTop_toBottomOf="@id/colorButton"
-        app:layout_constraintVertical_bias="0.0"
-        android:onClick="sizeButtonClicked"/>
+        app:layout_constraintStart_toEndOf="@+id/colorButton"
+        app:layout_constraintTop_toTopOf="@+id/colorButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/sizeTV"
+        android:layout_width="48dp"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text="Size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/sizeButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/sizeButton"
+        app:layout_constraintTop_toBottomOf="@+id/sizeButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
