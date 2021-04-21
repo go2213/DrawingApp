@@ -197,6 +197,7 @@ public class CanvasView extends View {
         pencil.setStyle(Paint.Style.STROKE);
         pencil.setStrokeJoin(Paint.Join.ROUND);
         pencil.setStrokeWidth(3f);
+        pencil.setStrokeCap(Paint.Cap.ROUND);
     }
 
     private void setDefaultEraserSettings(){
@@ -205,6 +206,7 @@ public class CanvasView extends View {
         eraser.setStyle(Paint.Style.STROKE);
         eraser.setStrokeJoin(Paint.Join.ROUND);
         eraser.setStrokeWidth(20f);
+        eraser.setStrokeCap(Paint.Cap.ROUND);
     }
 
 

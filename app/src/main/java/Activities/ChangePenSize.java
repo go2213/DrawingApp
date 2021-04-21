@@ -103,6 +103,7 @@ public class ChangePenSize extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 appSession.setPencilSize(String.valueOf(pencilSeekBar.getProgress()));
+                changeStrokeInterface1.changeStroke();
             }
 
             @Override
