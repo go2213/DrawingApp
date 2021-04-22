@@ -32,6 +32,7 @@ public class CanvasView extends View {
     private final ArrayList<Stroke> undoList;
 
     private Paint selectedBrush;
+    private final Paint previousBrush = new Paint();
 
     private final Paint pen = new Paint();
     private final Paint highlighter = new Paint();
@@ -39,7 +40,9 @@ public class CanvasView extends View {
     private final Paint eraser = new Paint();
     private final CanvasViewListener canvasViewListener;
     private final AppSession appSession;
-    
+    private  boolean isRedoEnabled;
+
+
     public CanvasView(Context context, CanvasViewListener canvasViewListener){
         super(context);
         appSession = new AppSession(context, AppSession.PREF_APP);
@@ -50,14 +53,16 @@ public class CanvasView extends View {
         this.currentPathList = new ArrayList<>();
         this.undoList = new ArrayList<>();
 
-        this.setDefaultPenSettings();
-        this.setDefaultHighlighterSettings();
-        this.setDefaultPencilSettings();
-        this.setDefaultEraserSettings();
+        this.setDefaultPenSettings(pen);
+        this.setDefaultHighlighterSettings(highlighter);
+        this.setDefaultPencilSettings(pencil);
+        this.setDefaultEraserSettings(eraser);
 
         this.setSelectedBrushToPen();
         layoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
 
+        this.isRedoEnabled = false;
+        this.setDefaultPenSettings(previousBrush);
     }
 
     @Override
@@ -82,6 +87,11 @@ public class CanvasView extends View {
                 pathList.add(new Stroke(path, selectedBrush));
                 currentPathList.clear();
                 canvasViewListener.enableUndoButton(true);
+                if(isRedoEnabled){
+                    undoList.clear();
+                }
+                isRedoEnabled = false;
+                canvasViewListener.enableRedoButton(false);
                 break;
             default:
                 return false;
@@ -94,27 +104,28 @@ public class CanvasView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         for (Stroke stroke : pathList) {
-            selectedBrush.setColor(stroke.getColor());
-            selectedBrush.setStrokeWidth(stroke.getSize());
-            selectedBrush.setStrokeCap(stroke.getStrokeCap());
-            canvas.drawPath(stroke.getPath(), selectedBrush);
+            previousBrush.setColor(stroke.getColor());
+            previousBrush.setStrokeWidth(stroke.getSize());
+            previousBrush.setStrokeCap(stroke.getStrokeCap());
+            canvas.drawPath(stroke.getPath(), previousBrush);
         }
         for (Stroke stroke : currentPathList) { // last path drawn that is currently being drawn
-            selectedBrush.setColor(stroke.getColor());
-            selectedBrush.setStrokeWidth(stroke.getSize());
-            selectedBrush.setStrokeCap(stroke.getStrokeCap());
-            canvas.drawPath(stroke.getPath(), selectedBrush);
+            previousBrush.setColor(stroke.getColor());
+            previousBrush.setStrokeWidth(stroke.getSize());
+            previousBrush.setStrokeCap(stroke.getStrokeCap());
+            canvas.drawPath(stroke.getPath(), previousBrush);
         }
 
     }
 
     public void undoLastStroke(){
-
         if (pathList.size() > 0) {
             undoList.add(pathList.remove(pathList.size() - 1));
+            isRedoEnabled = true;
+            canvasViewListener.enableRedoButton(true);
             invalidate();
         }
-        else{
+        if(pathList.isEmpty()){
             canvasViewListener.enableUndoButton(false);
         }
     }
@@ -122,9 +133,11 @@ public class CanvasView extends View {
     public void redoLastStroke() {
         if (undoList.size() > 0) {
             pathList.add(undoList.remove(undoList.size()-1));
+            canvasViewListener.enableUndoButton(true);
             invalidate();
         }
-        else{
+        if(undoList.isEmpty()){
+            isRedoEnabled = false;
             canvasViewListener.enableRedoButton(false);
         }
     }
@@ -132,6 +145,7 @@ public class CanvasView extends View {
 
 
     public void clearAllStrokes(){
+
         undoList.clear();
         pathList.clear();
         invalidate();
@@ -173,40 +187,40 @@ public class CanvasView extends View {
     }
 
 
-    private void setDefaultPenSettings(){
-        pen.setAntiAlias(true);
-        pen.setColor(Color.MAGENTA);
-        pen.setStyle(Paint.Style.STROKE);
-        pen.setStrokeJoin(Paint.Join.ROUND);
-        pen.setStrokeWidth(20f);
-        pen.setStrokeCap(Paint.Cap.ROUND);
+    private void setDefaultPenSettings(Paint paint){
+        paint.setAntiAlias(true);
+        paint.setColor(Color.MAGENTA);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeWidth(20f);
+        paint.setStrokeCap(Paint.Cap.ROUND);
     }
 
-    private void setDefaultHighlighterSettings(){
-        highlighter.setAntiAlias(true);
-        highlighter.setARGB(150,238, 255, 0);
-        highlighter.setStyle(Paint.Style.STROKE);
-        highlighter.setStrokeJoin(Paint.Join.ROUND);
-        highlighter.setStrokeWidth(30f);
-        highlighter.setStrokeCap(Paint.Cap.SQUARE);
+    private void setDefaultHighlighterSettings(Paint paint){
+        paint.setAntiAlias(true);
+        paint.setARGB(150,238, 255, 0);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeWidth(30f);
+        paint.setStrokeCap(Paint.Cap.SQUARE);
     }
 
-    private void setDefaultPencilSettings(){
-        pencil.setAntiAlias(true);
-        pencil.setARGB(255,112, 112, 112);
-        pencil.setStyle(Paint.Style.STROKE);
-        pencil.setStrokeJoin(Paint.Join.ROUND);
-        pencil.setStrokeWidth(3f);
-        pencil.setStrokeCap(Paint.Cap.ROUND);
+    private void setDefaultPencilSettings(Paint paint){
+        paint.setAntiAlias(true);
+        paint.setARGB(255,112, 112, 112);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeWidth(3f);
+        paint.setStrokeCap(Paint.Cap.ROUND);
     }
 
-    private void setDefaultEraserSettings(){
-        eraser.setAntiAlias(true);
-        eraser.setColor(Color.WHITE);
-        eraser.setStyle(Paint.Style.STROKE);
-        eraser.setStrokeJoin(Paint.Join.ROUND);
-        eraser.setStrokeWidth(20f);
-        eraser.setStrokeCap(Paint.Cap.ROUND);
+    private void setDefaultEraserSettings(Paint paint){
+        paint.setAntiAlias(true);
+        paint.setColor(Color.WHITE);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeWidth(20f);
+        paint.setStrokeCap(Paint.Cap.ROUND);
     }
 
 

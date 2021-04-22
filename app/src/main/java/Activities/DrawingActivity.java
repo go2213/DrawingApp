@@ -131,8 +131,6 @@ public class DrawingActivity extends AppCompatActivity implements CanvasView.Can
         canvasView.setSelectedBrushToPen();
         penColorIV.setBackgroundColor(canvasView.getSelectedBrushColor());
 
-        BrushColor test5 = new BrushColor(canvasView.getSelectedBrushColor());
-        Log.i("pen color ", test5.toString());
 
         Drawable drawable = penImgView.getDrawable();
         if(drawable!=null){
@@ -150,8 +148,6 @@ public class DrawingActivity extends AppCompatActivity implements CanvasView.Can
         canvasView.setSelectedBrushToHighlighter();
         highlighterColorIV.setBackgroundColor(canvasView.getSelectedBrushColor());
 
-        BrushColor test5 = new BrushColor(canvasView.getSelectedBrushColor());
-        Log.i("HL color: ", test5.toString());
 
         Drawable drawable = highlighterImgView.getDrawable();
         if(drawable!=null){
@@ -168,9 +164,6 @@ public class DrawingActivity extends AppCompatActivity implements CanvasView.Can
         colorButton.setEnabled(true);
         canvasView.setSelectedBrushToPencil();
         pencilColorIV.setBackgroundColor(canvasView.getSelectedBrushColor());
-
-        BrushColor test5 = new BrushColor(canvasView.getSelectedBrushColor());
-        Log.i("pencil color: ", test5.toString());
 
         Drawable drawable = pencilImgView.getDrawable();
         if(drawable!=null){
